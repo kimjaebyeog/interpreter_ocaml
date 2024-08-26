@@ -1,0 +1,10 @@
+val take : int -> 6' list -> (6' list) = <thunk>
+val ones : int list = <thunk>
+val nats : int list = <thunk>
+val fibs : int list = <thunk>
+- : int list = [1;1;1;1;1;1;1;1;1;1]
+- : int list = [0;1;2;3;4;5;6;7;8;9]
+- : int list = [1;1;2;3;5;8;13;21;34;55]
+val natPairs : (int * int) list = <thunk>
+val take : int -> 81' list -> (81' list) = <thunk>
+- : (int * int) list = [(0,0);(1,0);(0,1);(2,0);(1,1);(0,2);(3,0);(2,1);(1,2);(0,3)]

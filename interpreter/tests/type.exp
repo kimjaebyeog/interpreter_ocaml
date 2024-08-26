@@ -1,0 +1,3 @@
+- : int -> bool = <rfun>
+val f : int * bool -> bool = <fun>
+- : 18' -> 18' = <fun>

@@ -1,0 +1,47 @@
+
+let rec take n l = match l with
+    x::xs -> if n = 1 then x::[] else x::(take (n -1) xs)
+    | [] -> [] end;;
+
+let rec ones = 1::ones;;
+let nats = 
+    let rec from n = n :: (from (n + 1)) in
+    from 0;;
+let fibs = 
+    let nextpair x = match x with (x,y) -> (y,x+y) end in
+    let rec from p = match p with (x,y) -> y :: (from (nextpair p)) end in
+    from (0,1);;
+
+take 10 ones;;
+take 10 nats;;
+take 10 fibs;;
+
+let natPairs = 
+    let rec append l1 l2 =
+        match l1 with
+            x :: xs -> x :: (append xs l2)
+            | [] -> l2
+        end in
+    let rec map f l =
+        match l with
+            x :: xs -> (f x) :: (map f xs)
+            | [] -> []
+        end in
+    let nexthead l =
+        match l with
+            (a,b) :: xs -> (a+1,b)
+        end in
+    let f x = 
+        match x with
+            (a, b) -> (a, b+1)
+        end in
+    let next l = ((nexthead l) :: (map f l)) in
+    let rec from l = append l (from (next l)) in
+    from [(0,0)];;
+
+
+let rec take n l = match l with
+    x::xs -> if n = 1 then x::[] else x::(take (n -1) xs)
+    | [] -> [] end;;
+
+take 10 natPairs;;

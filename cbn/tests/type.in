@@ -1,0 +1,8 @@
+let rec a x = false
+    in let y = a 1
+    in a;;
+
+let f = fun x -> match x with (1,_) -> true | (_, false) -> false | _ -> true end;;
+
+let s = fun x -> fun y -> fun z -> x z (y z)
+    in s (fun x -> fun y -> x) (fun x -> fun y -> x);;

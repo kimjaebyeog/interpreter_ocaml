@@ -1,0 +1,53 @@
+(executable
+ (public_name interpreter)
+ (name main))
+(ocamllex 
+ (modules myLexer))
+(menhir 
+ (modules myParser))
+
+; Disable “make all warnings errors” (still warns you)
+(env
+  (dev
+    (flags (:standard -warn-error -A))))
+
+
+; Testing
+; ($ dune test) to test (print if there is difference between the result and the expectation)
+; ($ dune promote) to promote the result to the expectation
+
+(rule
+  (with-stdout-to ./calc.out
+  (with-stdin-from ./tests/calc.in
+    (run ./main.exe)
+  ))
+)
+  
+(rule
+  (alias runtest)
+  (action (diff ./tests/calc.exp calc.out))
+)
+
+(rule
+  (with-stdout-to ./fun.out
+  (with-stdin-from ./tests/fun.in
+    (run ./main.exe)
+  ))
+)
+  
+(rule
+  (alias runtest)
+  (action (diff ./tests/fun.exp fun.out))
+)
+
+(rule
+  (with-stdout-to ./type.out
+  (with-stdin-from ./tests/type.in
+    (run ./main.exe)
+  ))
+)
+  
+(rule
+  (alias runtest)
+  (action (diff ./tests/type.exp type.out))
+)

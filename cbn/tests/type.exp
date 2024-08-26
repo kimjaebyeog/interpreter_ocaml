@@ -1,0 +1,3 @@
+- : int -> bool = <fun>
+val f : int * bool -> bool = <thunk>
+- : 18' -> 18' = <fun>

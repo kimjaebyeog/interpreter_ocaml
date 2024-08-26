@@ -1,0 +1,87 @@
+
+let rec exponent n p =
+    if n - n/p*p = 0
+    then 1 + exponent (n/p) p 
+    else 0 ;;
+
+let rec pow n e =
+    if e = 0 then 1
+    else n * (pow n (e-1)) ;;
+
+let rec fac n primes =
+    if n = 1 then []
+    else match primes with
+        p :: ps ->
+            if n - n/p*p = 0
+            then let e = exponent n p in
+
+                e :: (fac (n/(pow p e)) ps)
+            else 0 :: (fac n ps) 
+        | [] -> []
+    end ;;
+
+let rec map f l =
+    match l with
+        x :: xs -> (f x) :: (map f xs)
+        | [] -> []
+    end ;;
+
+let rec append l1 l2 =
+    match l1 with
+        x :: xs -> x :: (append xs l2)
+        | [] -> l2
+    end ;;
+
+let rec snoc i l = append l [i] ;;
+
+let rec length l =
+    match l with
+        _ :: xs -> 1 + (length xs)
+        | [] -> 0
+    end ;;
+
+let rec isall0 l =
+    match l with
+        0 :: xs -> isall0 xs
+        | _ :: _ -> false
+        | [] -> true
+    end ;;
+
+let next tup =
+    match tup with
+        (n, primes) ->
+            let new_l = 
+                let x = (fac n primes) in
+                if isall0 x then snoc 1 (map (fun x -> 0) primes)
+                else x
+            in let new_primes = if length primes < length new_l then snoc n primes else primes
+            in (new_primes, new_l)
+    end ;;
+
+
+exponent 9 3;;
+exponent 8 3;;
+pow 3 2;;
+pow 3 4;;
+fac 10 [2;3;5;7];;
+map (fun x -> x+1) [1;2;3;4];;
+append [1;2;3;4] [5;6;7];;
+snoc 1 [2;3;4];;
+length [1;2;3;4;5];;
+isall0 [0;0;0;0;0;0;0;0;0];;
+isall0 [0;0;0;0;0;1;0;0;0];;
+isall0 [];;
+isall0 [1];;
+
+
+let rec from n primes=
+    match next (n, primes) with
+        (new_primes, new_l) ->
+            new_l :: (from (n+1) new_primes)
+end ;;
+
+let rec take n l = match l with
+    x::xs -> if n = 1 then x::[] else x::(take (n -1) xs)
+    | [] -> [] end;;
+
+take 10 (from 2 []);;

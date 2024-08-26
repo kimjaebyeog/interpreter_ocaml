@@ -1,0 +1,3 @@
+- : int = 2
+val x0 : bool = true
+- : int = 7

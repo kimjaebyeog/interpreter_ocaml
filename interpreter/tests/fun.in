@@ -1,0 +1,21 @@
+let rec sumto n = match n with
+    0 -> 0
+    | x -> sumto (x - 1) + x
+    end
+in sumto 10;;
+
+let len l = 
+    let rec innerfunc l i = match l with
+        [] -> i
+        | _ :: xs -> innerfunc xs (i+1)
+        end
+    in innerfunc l 0
+in len (5::[4;3;2;1]);;
+
+let rec even x = if x = 0 then true else odd (x - 1)
+and odd x = if x = 0 then false else even (x - 1);;
+even 43;;
+
+let rec map f x = match x with [] -> []
+    | x::xs -> f x :: (map f xs) end
+    in map (fun x ->x + 1) [1;2;3];;

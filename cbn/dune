@@ -1,0 +1,81 @@
+(executable
+ (public_name cbn)
+ (name main)
+ (modes byte exe))
+(ocamllex 
+ (modules myLexer))
+(menhir 
+ (modules myParser))
+
+; Disable “make all warnings errors” (still warns you)
+(env
+  (dev
+    (flags (:standard -warn-error -A))))
+
+
+; Testing
+; ($ dune test) to test (print if there is difference between the result and the expectation)
+; ($ dune promote) to promote the result to the expectation
+
+
+(rule
+  (with-stdout-to ./cbn.out
+  (with-stdin-from ./tests/cbn.in
+    (run ./main.exe)
+  ))
+)
+  
+(rule
+  (alias runtest)
+  (action (diff ./tests/cbn.exp cbn.out))
+)
+
+
+(rule
+  (with-stdout-to ./cbn1.out
+  (with-stdin-from ./tests/cbn1.in
+    (run ./main.exe)
+  ))
+)
+  
+(rule
+  (alias runtest)
+  (action (diff ./tests/cbn1.exp cbn1.out))
+)
+
+
+(rule
+  (with-stdout-to ./calc.out
+  (with-stdin-from ./tests/calc.in
+    (run ./main.exe)
+  ))
+)
+  
+(rule
+  (alias runtest)
+  (action (diff ./tests/calc.exp calc.out))
+)
+
+(rule
+  (with-stdout-to ./fun.out
+  (with-stdin-from ./tests/fun.in
+    (run ./main.exe)
+  ))
+)
+  
+(rule
+  (alias runtest)
+  (action (diff ./tests/fun.exp fun.out))
+)
+
+(rule
+  (with-stdout-to ./type.out
+  (with-stdin-from ./tests/type.in
+    (run ./main.exe)
+  ))
+)
+  
+(rule
+  (alias runtest)
+  (action (diff ./tests/type.exp type.out))
+)

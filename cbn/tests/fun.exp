@@ -1,0 +1,6 @@
+- : int = 55
+- : int = 5
+val even : int -> bool = <thunk>
+val odd : int -> bool = <thunk>
+- : bool =  false
+- : int list = [2;3;4]
