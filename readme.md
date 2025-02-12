@@ -43,7 +43,7 @@ cd <project_directory>
 dune build
 ```
 
-## usage
+## Usage
 
 Use dune to run.
 There are two implementations which use different evaluation strategy.
